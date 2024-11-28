@@ -14,6 +14,13 @@ public class ValidationTest {
     }
 
     @ParameterizedTest
+    @CsvSource({"'a,aa,a'", "'a,b,c,b'"})
+    void 자동차_이름이_중복되면_에러가_난다(String input) {
+        assertThatThrownBy(() -> Validation.validateDuplicationName(input))
+                .isExactlyInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
     @CsvSource({"''", "'1 2'", "abc", "012"})
     void 실행횟수가_숫자가_아니면_에러가_난다(String input) {
         assertThatThrownBy(() -> Validation.validateConductCountFormat(input))
