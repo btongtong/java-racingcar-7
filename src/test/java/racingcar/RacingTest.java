@@ -35,10 +35,10 @@ public class RacingTest {
         cars.get(2).move();
         cars.get(2).move();
 
-        List<Car> winners = racing.getWinners();
+        List<String> winners = racing.getWinners();
 
         assertEquals(2, winners.size());
-        assertTrue(winners.contains(cars.get(0)));
-        assertTrue(winners.contains(cars.get(2)));
+        assertTrue(winners.contains(cars.get(0).getName()));
+        assertTrue(winners.contains(cars.get(2).getName()));
     }
 }

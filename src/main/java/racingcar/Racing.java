@@ -21,8 +21,10 @@ public class Racing {
         return cars.stream().mapToInt(car -> car.getMove().length()).max().orElse(0);
     }
 
-    public List<Car> getWinners() {
+    public List<String> getWinners() {
         int maxMove = getMaxMove();
-        return cars.stream().filter(car -> car.getMove().length() == maxMove).collect(Collectors.toList());
+        return cars.stream()
+                .filter(car -> car.getMove().length() == maxMove)
+                .map(Car::getName).collect(Collectors.toList());
     }
 }
