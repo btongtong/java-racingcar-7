@@ -13,4 +13,12 @@ public class Car {
     public void move() {
         this.move.append(MOVE_SIGN);
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getMove() {
+        return this.move.toString();
+    }
 }
