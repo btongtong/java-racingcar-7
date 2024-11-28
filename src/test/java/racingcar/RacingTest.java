@@ -9,17 +9,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RacingTest {
-    List<Car> cars;
     Racing racing;
 
     @BeforeEach
     void setUp() {
-        cars = List.of(new Car("Car1"), new Car("Car2"), new Car("Car3"));
-        racing = new Racing(cars);
+        racing = new Racing("Car1,Car2,Car3");
     }
 
     @Test
     void 움직임_최댓값을_찾는다() {
+        List<Car> cars = racing.getCars();
         cars.get(0).move();
         cars.get(0).move();
         cars.get(1).move();
@@ -29,6 +28,7 @@ public class RacingTest {
 
     @Test
     void 우승자를_구한다() {
+        List<Car> cars = racing.getCars();
         cars.get(0).move();
         cars.get(0).move();
         cars.get(1).move();

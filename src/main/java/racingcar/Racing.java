@@ -1,14 +1,24 @@
 package racingcar;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Racing {
+    private static final String SEPERATOR = ",";
     private static final int moveCriteria = 4;
-    List<Car> cars;
+    private List<Car> cars;
 
-    public Racing(List<Car> cars) {
-        this.cars = cars;
+    public Racing(String input) {
+        this.cars = getCarsByInput(input);
+    }
+
+    private List<Car> getCarsByInput(String input) {
+        List<Car> cars = new ArrayList<>();
+        for (String name : input.split(SEPERATOR)) {
+            cars.add(new Car(name));
+        }
+        return cars;
     }
 
     public void moveCars() {
@@ -26,5 +36,9 @@ public class Racing {
         return cars.stream()
                 .filter(car -> car.getMove().length() == maxMove)
                 .map(Car::getName).collect(Collectors.toList());
+    }
+
+    public List<Car> getCars() {
+        return cars;
     }
 }
