@@ -6,7 +6,7 @@ public class Random {
     private static final int START = 0;
     private static final int END = 9;
 
-    private static int getRandomNumber() {
+    public static int getRandomNumber() {
         return Randoms.pickNumberInRange(START, END);
     }
 
