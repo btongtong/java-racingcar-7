@@ -14,29 +14,18 @@ public class Application {
     }
 
     private static void run() {
-        Racing racing = new Racing(getName(inputView.receiveCarName()));
-        int conductCount = getConductCount(inputView.receiveConductCount());
-        race(conductCount, racing);
+        Racing racing = new Racing(inputView.receiveCarName());
+        Round round = new Round(inputView.receiveConductCount());
+        race(round, racing);
         outputView.printFinalWinner(racing.getWinners());
     }
 
-    private static String getName(String input) {
-        Validation.validateNameFormat(input);
-        Validation.validateDuplicationName(input);
-        return input;
-    }
-
-    private static int getConductCount(String input) {
-        Validation.validateConductCountFormat(input);
-        Validation.validateNumberFormat(input);
-        return Integer.parseInt(input);
-    }
-
-    private static void race(int conductCount, Racing racing) {
+    private static void race(Round round, Racing racing) {
         outputView.printResultTitle();
-        while(conductCount-- > 0) {
+        while(round.isRemainConductCount()) {
             racing.moveCars();
             outputView.printResult(racing.getCars());
+            round.reduceConductCount();
         }
     }
 }

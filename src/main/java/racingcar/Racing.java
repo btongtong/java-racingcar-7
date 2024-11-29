@@ -10,7 +10,13 @@ public class Racing {
     private List<Car> cars;
 
     public Racing(String input) {
+        validate(input);
         this.cars = getCarsByInput(input);
+    }
+
+    private static void validate(String input) {
+        Validation.validateNameFormat(input);
+        Validation.validateDuplicationName(input);
     }
 
     private List<Car> getCarsByInput(String input) {
