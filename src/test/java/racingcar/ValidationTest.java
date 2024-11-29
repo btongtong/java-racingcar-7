@@ -7,8 +7,8 @@ import static org.assertj.core.api.Assertions.*;
 
 public class ValidationTest {
     @ParameterizedTest
-    @CsvSource({"''", "a cb", "abcdef"})
-    void 자동차_이름이_5글자_이상이거나_공백이_포함되면_에러가_난다(String input) {
+    @CsvSource({"'aaa,bbb,'", "',aaa,bbb'", "','"})
+    void 자동차_이름이_문자로_시작하고_쉼표로_구분되고_문자로_끝나지_않으면_에러가_난다(String input) {
         assertThatThrownBy(() -> Validation.validateNameFormat(input))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
     }
@@ -17,6 +17,20 @@ public class ValidationTest {
     @CsvSource({"'a,aa,a'", "'a,b,c,b'"})
     void 자동차_이름이_중복되면_에러가_난다(String input) {
         assertThatThrownBy(() -> Validation.validateDuplicationName(input))
+                .isExactlyInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"abcdef", "aaaaaaaaaa"})
+    void 자동차_이름이_5글자를_넘어가면_에러가_난다(String input) {
+        assertThatThrownBy(() -> Validation.validateNameLength(input, 5))
+                .isExactlyInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"' '", "''"})
+    void 자동차_이름이_공복이면_에러가_난다(String input) {
+        assertThatThrownBy(() -> Validation.validateEmpty(input))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
     }
 

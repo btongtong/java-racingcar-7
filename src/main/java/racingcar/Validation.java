@@ -1,13 +1,11 @@
 package racingcar;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Validation {
     public static void validateNameFormat(String input) {
-        String regex = "([^\\s]{1,5},)*[^\\s]{1,5}";
+        String regex = "([^,]+,)*[^,]+$";
         if (!input.matches(regex)) {
             throw new IllegalArgumentException(ErrorMessage.NAME_FORMAT_ERROR.getMessage());
         }
@@ -16,6 +14,18 @@ public class Validation {
     public static void validateDuplicationName(String input) {
         List<String> names = Arrays.asList(input.split(","));
         if (names.size() != names.stream().distinct().count()) {
+            throw new IllegalArgumentException(ErrorMessage.NAME_FORMAT_ERROR.getMessage());
+        }
+    }
+
+    public static void validateNameLength(String input, int max) {
+        if (input.length() > max) {
+            throw new IllegalArgumentException(ErrorMessage.NAME_FORMAT_ERROR.getMessage());
+        }
+    }
+
+    public static void validateEmpty(String input) {
+        if (input.isBlank()) {
             throw new IllegalArgumentException(ErrorMessage.NAME_FORMAT_ERROR.getMessage());
         }
     }
